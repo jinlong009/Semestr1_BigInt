@@ -16,5 +16,11 @@ int main() {
     std::cout << (number1 < number2) << std::endl;
     std::cout << (number1 > number2) << std::endl;
 
+    BigInt n = 100000000000000;
+    ++n;
+    std::cout << n << std::endl;
+    --n;
+    std::cout << n << std::endl;
+
     return 0;
 }

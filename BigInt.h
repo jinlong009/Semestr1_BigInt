@@ -23,19 +23,19 @@ class BigInt {
         friend bool operator >=(const BigInt& number1, const BigInt& number2);
         friend bool operator <=(const BigInt& number1, const BigInt& number2);
         friend BigInt operator +(BigInt number1, BigInt number2);
-        BigInt operator +=(BigInt number);
-        BigInt operator ++();
+        BigInt& operator +=(BigInt& number);
+        BigInt& operator ++();
         BigInt operator ++(int);
         friend BigInt operator -(BigInt number1, BigInt number2);
-        BigInt operator -=(BigInt number);
-        BigInt operator --();
+        BigInt& operator -=(BigInt& number);
+        BigInt& operator --();
         BigInt operator --(int);
         friend BigInt operator *(const BigInt& number1, const BigInt& number2);
-        BigInt operator *=(const BigInt& number);
+        BigInt& operator *=(const BigInt& number);
         friend BigInt operator /(BigInt number1, BigInt number2);
-        BigInt operator /=(BigInt number);
+        BigInt& operator /=(BigInt& number);
         friend BigInt operator %(BigInt number1, BigInt number2);
-        BigInt operator %=(BigInt number);
+        BigInt& operator %=(BigInt& number);
 
     private:
         std::vector<int> digits;
@@ -303,17 +303,18 @@ BigInt operator +(BigInt number1, BigInt number2) {
     return number1;
 }
 
-BigInt BigInt::operator +=(BigInt number) {
+BigInt& BigInt::operator +=(BigInt& number) {
     return *this = *this + number;
 }
 
-BigInt BigInt::operator ++() {
+BigInt& BigInt::operator ++() {
     return *this = *this + 1;
 }
 
 BigInt BigInt::operator ++(int) {
-    *this = *this + 1;
-    return *this = *this - 1;
+    BigInt old = *this;
+    ++(*this);
+    return old;
 }
 
 BigInt operator -(BigInt number1, BigInt number2) {
@@ -364,17 +365,18 @@ BigInt operator -(BigInt number1, BigInt number2) {
     return BigInt::RemoveLeadingZeros(number1);
 }
 
-BigInt BigInt::operator -=(BigInt number) {
+BigInt& BigInt::operator -=(BigInt& number) {
     return *this = *this - number;
 }
 
-BigInt BigInt::operator --() {
+BigInt& BigInt::operator --() {
     return *this = *this - 1;
 }
 
 BigInt BigInt::operator --(int) {
-    *this = *this - 1;
-    return *this = *this + 1;
+    BigInt old = *this;
+    --(*this);
+    return old;
 }
 
 BigInt BigInt::multiply(BigInt number1, BigInt number2, bool iteration) {
@@ -439,7 +441,7 @@ BigInt operator *(const BigInt& number1, const BigInt& number2) {
     return result;
 }
 
-BigInt BigInt::operator *=(const BigInt& number) {
+BigInt& BigInt::operator *=(const BigInt& number) {
     return *this = *this * number;
 }
 
@@ -503,7 +505,7 @@ BigInt operator /(BigInt number1, BigInt number2) {
     return result;
 }
 
-BigInt BigInt::operator /=(BigInt number) {
+BigInt& BigInt::operator /=(BigInt& number) {
     return *this = *this / number;
 }
 
@@ -563,6 +565,6 @@ BigInt operator %(BigInt number1, BigInt number2) {
     return number1_part;
 }
 
-BigInt BigInt::operator %=(BigInt number) {
+BigInt& BigInt::operator %=(BigInt& number) {
     return *this = *this % number;
 }
